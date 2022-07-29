@@ -1,0 +1,23 @@
+import java.util.Scanner;
+//输入描述：
+//        多组输入，一个整数（2~20），表示输出的行数，也表示组成“X”的反斜线和正斜线的长度。
+//        输出描述：
+//        针对每行输入，输出用“*”组成的X形图案。
+public class test {
+    public static void main(String[] args) {
+        Scanner scanner=new Scanner(System.in);
+        while(scanner.hasNextInt()) {
+            int n = scanner.nextInt();
+            for (int i = 0; i < n ; i++) {//输出n行
+                for (int j = 0; j < n ; j++) {//输出空格
+                    if (i == j||i+j==n-1) {
+                        System.out.print("*");
+                    } else {
+                        System.out.print (" ");
+                    }
+                }
+               System.out.println();
+            }
+        }
+    }
+}
