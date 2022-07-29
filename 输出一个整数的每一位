@@ -1,0 +1,10 @@
+public class test {
+    public static void main(String[] args) {
+        //输出一个整数的每一位，如：123的每一位是3，2，1
+        Scanner scan  =new Scanner(System.in);
+        int num=scan  .nextInt();
+        System.out.println(num/100);
+        System.out.println(num/10%10);
+        System.out.println(num%10);
+    }
+}
