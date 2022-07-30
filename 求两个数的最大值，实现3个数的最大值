@@ -1,0 +1,33 @@
+public class test {
+    public static int max2(int x,int y){
+        if(x>y){
+            return x;
+        }else{
+            return y;
+        }
+    }
+    public static int max3(int a,int b,int c){
+        int max=a;
+        if(a>b){
+            max=a;
+        }else{
+            max=b;
+        }
+        if(max>c){
+            return max;
+        }else{
+            return c;
+        }
+    }
+    public static void main(String[] args) {
+//        创建方法求两个数的最大值max2，随后再写一个求3个数的最大值的函数max3。
+//        要求：在max3这个函数中，调用max2函数，来实现3个数的最大值计算
+        int x=100;
+        int y=884;
+        int z=454;
+        int max1=max2(x,y);
+        System.out.println(max1);
+        int max=max3(x,y,z);
+        System.out.println(max);
+    }
+}
