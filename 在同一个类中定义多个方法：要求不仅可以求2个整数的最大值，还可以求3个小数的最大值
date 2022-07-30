@@ -1,0 +1,34 @@
+public class test {
+    public static int max(int a,int b){
+        if(a>b){
+            return a;
+        }else{
+            return b;
+        }
+    }
+    public static double max(double a,double b,double c){
+        double big=a;
+        if(a>b){
+            big=a;
+        }else{
+            big=b;
+        }
+        if(big>c){
+            return big;
+        }else{
+            return c;
+        }
+    }
+    public static void main(String[] args) {
+        //在同一个类中定义多个方法：要求不仅可以求2个整数的最大值，还可以求3个小数的最大值？
+        int x=1;
+        int y=2;
+        int max=max(x,y);
+        System.out.println(max);
+        double n=1.1;
+        double m=2.1;
+        double p=3.1;
+        double max1=max(n,m,p);
+        System.out.println(max1);
+    }
+}
