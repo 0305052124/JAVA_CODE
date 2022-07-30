@@ -1,0 +1,18 @@
+import java.util.Scanner;
+
+public class test {
+    public static int fib(int n) {
+        if(n==1||n==2) {
+            return  1;
+        } else {
+            return fib(n-1)+fib(n-2);
+        }
+    }
+   public static void main(String[] args) {
+        //求斐波那契数列的第n项。(迭代实现)
+        Scanner scanner=new Scanner(System.in);
+        int n=scanner.nextInt();
+       int p=fib(n);
+        System.out.println(p);
+    }
+}
