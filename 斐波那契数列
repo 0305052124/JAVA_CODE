@@ -9,6 +9,32 @@ public class test {
         }
     }
    public static void main(String[] args) {
+        //求斐波那契数列的第n项。递归
+        Scanner scanner=new Scanner(System.in);
+        int n=scanner.nextInt();
+       int p=fib(n);
+        System.out.println(p);
+    }
+}
+//------------------------------------------------------------------------------------------
+import java.util.Scanner;
+
+public class test {
+    public static int fib(int n) {
+         int a=1;
+         int b=1;
+         int c=1;
+         if(n==1||n==2){
+             return 1;
+         }
+        for (int i = n-2; i >0 ; i--) {
+            c=a+b;
+            a=b;
+            b=c;
+        }
+        return c;
+    }
+   public static void main(String[] args) {
         //求斐波那契数列的第n项。(迭代实现)
         Scanner scanner=new Scanner(System.in);
         int n=scanner.nextInt();
