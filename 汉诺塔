@@ -1,0 +1,22 @@
+//import java.util.Scanner;
+//
+//public class test {
+//    public static void hanio(int n,char pos1,char pos2,char pos3){
+//        if(n==1){
+//            move(pos1,pos3);
+//        }else{
+//            hanio(n-1,pos1,pos3,pos2);
+//            move(pos1,pos3);
+//            hanio(n-1,pos2,pos1,pos3);
+//        }
+//    }
+//    public static void move(char p1,char p2){
+//        System.out.print(p1+"->"+p2+" ");
+//    }
+//    public static void main(String[] args) {
+//        //递归求解汉诺塔问题
+//        Scanner scanner=new Scanner(System.in);
+//        int n= scanner.nextInt();
+//        hanio(n,'A','B','C');
+//    }
+//}
