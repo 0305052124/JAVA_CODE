@@ -1,0 +1,29 @@
+public class Test {
+    public static int tofind(int[] a){
+        int len=a.length/2;
+        int count=0;
+        for (int i = 0; i < a.length; i++) {
+            int ret=a[i];
+            for (int j =0; j <a.length ; j++) {
+                if(a[j]==ret){
+                    count++;
+                }
+            }
+            if(count>=len){
+                return ret;
+            }
+        }
+        return -1;
+    }
+    public static void main(String[] args) { 
+        int[] a={3,2,3};
+        int ret = tofind(a);
+        System.out.println(ret);
+    }
+}
+//给定一个大小为 n 的数组，找到其中的多数元素。多数元素是指在数组中出现次数 大于 ⌊ n/2 ⌋ 的元素。
+//你可以假设数组是非空的，并且给定的数组总是存在多数元素。
+//输入：[2,2,1,1,1,2,2]
+//输出：2
+//输入：[3,2,3]
+//输出：3
