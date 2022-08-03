@@ -1,0 +1,29 @@
+public class test {
+    public static int[] swap(int[] arr){
+        int[] b=new int[arr.length];
+        int j=0;
+        for (int i = 0; i < arr.length; i++) {
+             if(arr[i]%2==1){
+                 b[j]=arr[i];
+                 j++;
+             }
+        }
+        for (int i = 0; i < arr.length; i++) {
+            if(arr[i]%2==0){
+                b[j]=arr[i];
+                j++;
+            }
+        }
+        return b;
+    }
+    public static void main(String[] args) {
+        //调整数组顺序使得奇数位于偶数之前。调整之后，不关心大小顺序。
+        //如数组：[1,2,3,4,5,6]
+        //调整后可能是：[1, 5, 3, 4, 2, 6]
+        int[] a={1,2,3,4,5,6};
+        a=swap(a);
+        for (int i = 0; i < a.length; i++) {
+            System.out.print(a[i]+" ");
+        }
+    }
+}
