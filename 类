@@ -1,0 +1,39 @@
+class Computer{
+    private String cpu;
+    private String memory;
+    public String screen;
+    String brand;
+    public Computer(String brand,String cpu,String memory,String screen){
+        this.brand=brand;
+        this.cpu=cpu;
+        this.memory=memory;
+        this.screen=screen;
+    }
+    public void Boot(){
+        System.out.println("开机");
+    }
+    public void PowerOff(){
+        System.out.println("关机");
+    }
+    public void SurfInternet(){
+        System.out.println("上网");
+    }
+
+    public String getMemory() {
+        return memory;
+    }
+
+    public String getCpu() {
+        return cpu;
+    }
+}
+public class Test {
+    public static void main(String[] args) {
+        Computer p = new Computer("hw","i7","8g","13*14");
+        System.out.println(p.brand);
+        System.out.println(p.screen);
+        System.out.println(p.getMemory());
+        System.out.println(p.getCpu());
+        p.Boot();
+    }
+}
