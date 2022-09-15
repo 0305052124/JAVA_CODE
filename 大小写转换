@@ -1,0 +1,60 @@
+
+import java.util.Scanner;
+public class Test {  
+    public static void main(String[] args) {
+        System.out.print("请输入小写字母：");
+        Scanner scanner = new Scanner(System.in);
+        String ret=scanner.next();
+        System.out.println("对应的大写字母是："+ret.toUpperCase());
+    }
+} 
+import java.util.Scanner;
+public class Test {
+    public static void main(String[] args) {
+        System.out.print("请输入大写字母：");
+        Scanner scanner = new Scanner(System.in);
+        String ret=scanner.next();
+        System.out.println("对应的小写字母是："+ret.toLowerCase());
+    }
+} 
+
+import java.util.Scanner;
+public class Test {
+    public static void main(String[] args) {
+        System.out.print("请输入一个字母：");
+        Scanner scanner = new Scanner(System.in);
+        char ret=scanner.next().charAt(0);
+        if((ret>='a')&&(ret<='z')){
+            ret=(char)(ret-32);
+            System.out.println("反转大小写后的字母是："+ret);
+        }else if((ret>='A')&&(ret<='Z')){
+            ret=(char)(ret+32);
+            System.out.println("反转大小写后的字母是："+ret);
+        }else{
+        System.out.println("输入错误");
+        }
+    }
+}
+
+
+
+import java.util.Scanner;
+public class Test {
+    public static void main(String[] args) {
+        System.out.print("请输入字符串：");
+        Scanner scanner = new Scanner(System.in);
+        String ret = scanner.next();
+        char[] arrays = ret.toCharArray();
+        for (int i = 0; i < arrays.length; i++) {
+            char c1 = arrays[i];    
+            if (c1 >= 97 && c1 <= 122) {    
+                char c2 = (char)(c1-32);
+                System.out.print(c2);
+            } else if (c1 >= 65 && c1 <= 90) {
+                char c2 = (char)(c1+32); 
+                System.out.print(c2);
+            } else {
+                System.out.print("/");  /*非法字符用空格代替*/
+            }
+        }
+    } 
