@@ -1,0 +1,19 @@
+import java.util.Scanner;
+public class pentagon {
+    public static void main(String[] args) {
+        System.out.println("请输入正五边形外切圆的半径:");
+        Scanner scanner=new Scanner(System.in);
+        float len =scanner.nextFloat();
+        float angle18=  (float) (Math.PI/2-2*Math.PI/5) ;
+        float angle54=  (float) (2*Math.PI/5-angle18) ;
+        float x1=(float) (len*Math.cos(angle18));
+        float y1=(float)(len*Math.sin(angle18)) ;
+        float x2=(float)(len*Math.cos(angle54)) ;
+        float y2=(float)((-1)*len*Math.sin(angle54));
+        System.out.println("( "+"0.00"+" , "+len+" )");
+        System.out.printf("(%.2f,%.2f)\n",x1,y1);
+        System.out.printf("(%.2f,%.2f)\n",(-1)*x1,y1);
+        System.out.printf("(%.2f,%.2f)\n",x2,y2);
+        System.out.printf("(%.2f,%.2f)\n",(-1)*x2,y2);
+    }
+}
