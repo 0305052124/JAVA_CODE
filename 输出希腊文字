@@ -1,0 +1,14 @@
+public class greek {
+    public static void main (String args[ ])
+    {
+        char start='α',end='ω';//找到希腊字母的首尾字母
+        int startPosition=(int)start;//cStart做int型转换据运算，并将结果赋值给startPosition
+        int endPosition=(int)end;//cEnd做int型转换运算，并将结果赋值给endPosition
+        System.out.println("希腊字母表：");
+        for(int i=startPosition;i<=endPosition;i++)
+        {
+            char c=(char)i; //i做char型转换运算，并将结果赋值给c
+            System.out.print(c+" ");
+        }
+    }
+}
