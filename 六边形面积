@@ -1,0 +1,12 @@
+import java.util.Scanner;
+
+public class hexagon {
+        public static void main(String[] args) {
+            Scanner scanner=new Scanner(System.in);
+            double s = scanner.nextDouble();
+//            double s=5.5;
+            double area=Math.pow(s,2)*6/4/StrictMath.tan(Math.PI/6);
+            System.out.print ("六边形边长是："+s+"    "+"六边形面积是："+area);
+        }
+}
+
