@@ -1,0 +1,46 @@
+mport com.sun.javafx.image.BytePixelSetter;
+
+import java.util.Scanner;
+public class logon {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String userName;//用户名
+        String cipher1, cipher2;//密码
+        while (true) {
+            System.out.println("请输入用户名：");
+            userName = scanner.next();
+            if (userName.length() < 3) {
+                System.out.println("输入有误！");
+            } else {
+                break;
+            }
+        }
+        System.out.println("设置用户名成功，用户名是："+userName);
+        while(true){
+            while (true) {
+                System.out.println("请输入第一次密码：");
+                cipher1 = scanner.next();
+                if (cipher1.length() < 6) {
+                    System.out.println("输入有误！");
+                } else {
+                    break;
+                }
+            }
+            while (true) {
+                System.out.println("请输入第二次密码：");
+                cipher2 = scanner.next();
+                if (cipher2.length() < 6) {
+                    System.out.println("输入有误！");
+                } else {
+                    break;
+                }
+            }
+            if(cipher1.equals(cipher2)){
+                System.out.println("设置密码成功，密码是："+cipher1);
+                break;
+            }else{
+                System.out.println("两次密码不一致,请重新输入：");
+            }
+        }
+    }
+}
