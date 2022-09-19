@@ -1,0 +1,513 @@
+什么是抽象类？ 
+在面向对象的概念中，所有的对象都是通过类来描绘的，但是反过来，并不是所有的类都是用来描绘对象的，如果一个类中没有包含足够的信息来描绘一个具体的对象，那么这样的类称为抽象类。
+
+如何构造出一个抽象类？
+在Java中，一个类如果被 abstract 修饰称为抽象类，抽象类中被 abstract 修饰的方法称为抽象方法，抽象方法不用给出具体的实现体。 
+
+//抽象类
+public abstract class Shape {
+    protected double area;
+    abstract public void draw();//抽象方法
+    public double getarea(){//普通方法
+        return area;
+    }
+}
+注：抽象类也是类，内部可以包含普通方法和属性，甚至构造方法。
+
+抽象类有哪些特性？ 
+1. 抽象类不能直接实例化对象 
+
+2.抽象方法不能是 private 的
+
+注意：抽象方法没有加访问限定符时，默认是public.
+
+3. 抽象方法不能被final和static修饰，因为抽象方法要被子类重写
+
+4. 抽象类必须被继承，并且继承后子类要重写父类中的抽象方法，否则子类也是抽象类，必须要使用 abstract 修饰
+
+5. 抽象类中不一定包含抽象方法，但是有抽象方法的类一定是抽象类
+
+6. 抽象类中可以有构造方法，供子类创建对象时，初始化父类的成员变量
+
+7.抽象类本身不能被实例化, 要想使用, 只能创建该抽象类的子类.，然后让子类重写抽象类中的抽象方法。
+
+问题：普通类也能被继承，普通方法也能被重写，为什么要用抽象类和抽象方法呢？
+        通常在使用抽象类的场景中实际工作不应该由父类完成, 而应由子类完成. 那么此时如果不小心误用成父类了, 使用普通类编译器是不会报错的。但是父类是抽象类由于抽象类不能实例化就会报错, 让我们尽早发现问题。
+
+什么是接口？
+Java接口是一系列方法的声明，是一些方法特征的集合，一个接口只有方法特征没有方法的实现，因此这些方法可以在不同的地方被不同的类实现，而这些实现可以具有不同的行为（功能）。
+
+接口可以理解为一种特殊的类，里面全部是由全局常量和公共的抽象方法所组成。接口是解决Java无法使用多继承的一种手段，但是接口在实际中更多的作用是制定标准的。或者我们可以直接把接口理解为100%的抽象类，即接口中的方法必须全部是抽象方法。（jdk1.8前）
+
+如何实现一个接口？
+接口的定义格式与定义类的格式基本相同，将class关键字换成 interface 关键字，就定义了一个接口。  
+
+//接口的定义格式与定义类的格式基本相同，将class关键字换成 interface 关键字，就定义了一个接口。
+public interface USB { 
+    public abstract void method1();// public abstract 是固定搭配，可以不写 
+    void method2();// public abstract 是固定搭配，可以不写
+ 
+}
+注意：接口不能直接使用，必须要有一个"实现类"来"实现"该接口，实现接口中的所有抽象方法。
+
+public class 类名称 implements 接口名称{
+ 
+//.......
+ 
+}
+注意：子类和父类之间是extends 继承关系，类与接口之间是 implements 实现关系。
+
+ 下面实现一个简单的USB接口： 
+
+// USB接口
+public interface USB {
+    void OpenDevice();//打开电脑
+    void CloseDevice();//关闭电脑
+}
+ 
+// USB接口
+public class Mouse implements USB{
+    @Override
+    public void OpenDevice() {
+        System.out.println("打开鼠标");
+    }
+    @Override
+    public void CloseDevice() {
+        System.out.println("关闭鼠标");
+    }
+    public void Click(){
+        System.out.println("鼠标点击");
+    }
+}
+ 
+ 
+// 键盘类，实现USB接口
+public class KeyBoard implements USB{
+    @Override
+    public void OpenDevice() {
+        System.out.println("打开键盘");
+    }
+    @Override
+    public void CloseDevice() {
+        System.out.println("关闭键盘");
+    }
+    public void Input(){
+        System.out.println("键盘输入");
+    }
+}
+ 
+// 笔记本类：使用USB设备
+public class Computer implements USB{
+    @Override
+    public void OpenDevice() {
+        System.out.println("打开电脑");
+    }
+    @Override
+    public void CloseDevice() {
+        System.out.println("关闭电脑");
+    }
+ 
+    public void UseDevice(USB usb){
+        usb.OpenDevice();
+        if(usb instanceof Mouse){
+            Mouse mouse=(Mouse) usb;
+            mouse.Click();
+        } else if (usb instanceof KeyBoard) {
+            KeyBoard keyBoard=(KeyBoard) usb;
+            keyBoard.Input();
+        }
+        usb.CloseDevice();
+    }
+ 
+}
+ // 测试类：
+public class TestUSB {
+    public static void main(String[] args) {
+        Computer computer = new Computer();
+        computer.OpenDevice();
+        // 使用鼠标设备
+        computer.UseDevice(new Mouse());
+        // 使用键盘设备
+        computer.UseDevice(new KeyBoard());
+        computer.CloseDevice();
+    }
+}
+//结果：
+//打开电脑
+//打开鼠标
+//鼠标点击
+//关闭鼠标
+//打开键盘
+//键盘输入
+//关闭键盘
+//关闭电脑
+
+接口有哪些特性？
+1. 接口类型是一种引用类型，但是不能直接new接口的对象。
+
+2. 接口中每一个方法都是public的抽象方法, 即接口中的方法会被隐式的指定为 public abstract（只能是public abstract，其他修饰符都会报错。 
+
+3. 接口中的方法是不能在接口中实现的，只能由实现接口的类来实现。
+
+4. 重写接口中方法时，不能使用default访问权限修饰。
+
+5. 接口中可以含有变量，但是接口中的变量会被隐式的指定为 public static final 变量。
+
+6. 接口中不能有静态代码块和实例代码块和构造方法。
+
+7. 接口虽然不是类，但是接口编译完成后字节码文件的后缀格式也是.class
+
+8. 如果类没有实现接口中的所有的抽象方法，则类必须设置为抽象类
+
+9. jdk8中：接口中还可以包含default方法
+
+
+在Java中，类和类之间是单继承的，一个类只能有一个父类，即Java中不支持多继承，但是一个类可以实现多个接口。
+
+如何去实现多个接口？
+ 
+//定义一个动物类
+ 
+class Animal{
+    protected String name;
+ 
+    public Animal(String name){
+        this.name=name;
+    }
+ 
+}
+ 
+//下面提供一些有关动物的接口
+ 
+interface IRunning{
+ 
+    void run();
+}
+ 
+interface ISwimming{
+    void swim();
+ 
+}
+ 
+interface Iflying{
+    void fly();
+}
+ 
+//猫会跑
+ 
+class Cat extends Animal implements IRunning{
+    public Cat(String name) {
+        super(name);
+    }
+ 
+    @Override
+    public void run() {
+ 
+        System.out.println(name+"正在跑");
+ 
+    }
+}
+//鱼会游泳
+ 
+class Fish extends Animal implements ISwimming{
+ 
+    public Fish(String name) {
+        super(name);
+    }
+ 
+    @Override
+    public void swim() {
+        System.out.println(name+"正在游泳");
+    }
+}
+ 
+//天鹅会跑，会游泳，会飞
+ 
+class Swan extends Animal implements IRunning,ISwimming,Iflying{
+ 
+ 
+    public Swan(String name) {
+        super(name);
+    }
+ 
+    @Override
+    public void run() {
+        System.out.println(name+"正在跑");
+ 
+    }
+ 
+    @Override
+    public void swim() {
+        System.out.println(name+"正在游泳");
+ 
+    }
+ 
+    @Override
+    public void fly() {
+        System.out.println(name+"正在飞");
+ 
+    }
+}
+
+注意：一个类实现多个接口时，每个接口中的抽象方法都要实现，否则类必须设置为抽象类。
+
+上面的代码展示了 Java 面向对象编程中最常见的用法: 一个类继承一个父类, 同时实现多种接口。
+
+时刻牢记多态的好处, 让程序猿忘记类型。有了接口之后, 类的使用者就不必关注具体类型,
+而只关注某个类是否具备某种能力。 
+
+public static void walk(IRunning running){
+        running.run(); 
+    }
+在这个 walk 方法内部, 我们并不关注到底是哪种动物, 只要参数是会跑的, 就行
+
+public class Test {
+    public static void walk(IRunning running){
+        running.run(); 
+    }
+    public static void main(String[] args) {
+        Cat cat=new Cat("咪咪");
+        walk(cat); 
+    } 
+}
+//结果：
+//咪咪正在跑
+class Robot extends Animal implements IRunning{
+    public Robot(String name){
+        super(name);
+    }
+    @Override
+    public void run() {
+        System.out.println(name + "正在跑");
+    }
+}
+ 
+public class Test {
+    public static void walk(IRunning running){
+        running.run();
+    }
+    public static void main(String[] args) {
+        Cat cat=new Cat("咪咪");
+        walk(cat);
+        walk(new Robot("大白"));
+    }
+}
+//咪咪正在跑
+//大白正在跑
+
+在Java中，类和类之间是单继承的，一个类可以实现多个接口，接口与接口之间可以多继承。即：用接口可以达到多继承的目的。
+
+如何实现接口间的继承
+//把IRunning,ISwimming,Iflying全部继承到IAction上
+interface IAction extends IRunning,ISwimming,Iflying{
+ 
+}
+ 
+class Swan extends Animal implements IAction {
+    public Swan(String name) {
+        super(name);
+    }
+    @Override
+    public void run() {
+        System.out.println(name + "正在跑");
+    }
+ 
+    @Override
+    public void swim() {
+        System.out.println(name + "正在游泳");
+    }
+ 
+    @Override
+    public void fly() {
+        System.out.println(name + "正在飞");
+    }
+}
+ 
+public class Test {
+    public static void main(String[] args) {
+       Swan swan=new Swan("白白");
+       swan.run();
+       swan.swim();
+       swan.fly();
+ 
+    }
+}
+//白白正在跑
+//白白正在游泳
+//白白正在飞
+
+接口间的继承相当于把多个接口合并在一起。 
+
+抽象类和接口的区别：
+（1）抽象类可以有构造方法，接口中不能有构造方法。
+
+（2）抽象类中可以有普通成员变量，接口中没有普通成员变量。
+
+（3）抽象类中可以包含静态方法，接口中不能包含静态方法。
+
+（4） 一个类可以实现多个接口，但只能继承一个抽象类。
+
+（5）接口可以被多重实现，抽象类只能被单一继承。
+
+（6）如果抽象类实现接口，则可以把接口中方法映射到抽象类中作为抽象方法而不必实现，而在抽象类的子类中实现接口中方法。
+
+接口和抽象类的相同点：
+(1) 都可以被继承。
+
+(2) 都不能被实例化。
+
+(3) 都可以包含方法声明。
+
+(4) 派生类必须实现未实现的方法。
+ 
+
+何为Object类？
+Object是Java默认提供的一个类。Java里面除了Object类，所有的类都是存在继承关系的。默认会继承Object父类。即所有类的对象都可以使用Object的引用进行接收。
+
+public class Test2 {
+    public static void main(String[] args) {
+        fun1(new A());
+        fun1(new B());
+    }
+    public static void fun1(Object object){
+        System.out.println(object);
+    }
+}
+ 
+class A{
+ 
+}
+class B{
+ 
+}
+
+利用Object类获取对象信息
+如果要打印对象中的内容，可以直接重写Object类中的toString()方法
+
+class Animal{
+    protected String name;
+ 
+    public Animal(String name){
+        this.name=name;
+    }
+ 
+    @Override
+    public String toString() {
+        return "Animal{" +
+                "name='" + name + '\'' +//可以修改
+                '}';
+    }
+}
+利用Object类进行对象比较
+在Java中，== 进行比较时：
+a.如果==左右两侧是基本类型变量，比较的是变量中值是否相同
+b.如果==左右两侧是引用类型变量，比较的是引用变量地址是否相同
+c.如果要比较对象中内容，必须重写Object中的equals方法，因为equals方法默认也是按照地址比较的
+
+ //Object类中的equals方法
+public boolean equals(Object obj) {
+return (this == obj); // 使用引用中的地址直接来进行比较
+}
+ 
+public class Test {
+    public static void main(String[] args) {
+        Cat cat1=new Cat("小白",5);
+        Cat cat2=new Cat("小白",5);
+        int a=10;
+        int b=10;
+        System.out.println(a==b);
+        System.out.println(cat1==cat2);
+        System.out.println(cat1.equals(cat2));
+    }
+}
+ 
+class Cat{
+    private String name;
+    private int age;
+    public Cat(String name,int age){
+        this.name=name;
+        this.age=age;
+    }
+}
+//true
+//false
+//false
+
+ 重写equals方法后，然后比较：
+
+   @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cat cat = (Cat) o;
+        return age == cat.age && name.equals(cat.name);
+    }
+//结果：
+//true
+//false
+//true 
+ 结论：比较对象中内容是否相同的时候，一定要重写equals方法。
+
+hashcode方法
+hashcode方法用来确定对象在内存中存储的位置是否相同
+事实上hashCode() 在散列表中才有用，在其它情况下没用。在散列表中hashCode() 的作用是获取对象的散列码，进而确定该对象在散列表中的位置。
+
+我们认为两个名字相同，年龄相同的对象，将存储在同一个位置，如果不重写hashcode()方法 
+
+public class Test {
+    public static void main(String[] args) {
+        Cat cat1=new Cat("小白",5);
+        Cat cat2=new Cat("小白",5);
+        System.out.println(cat1.hashCode());
+        System.out.println(cat2.hashCode());
+    }
+}
+ 
+class Cat{
+    private String name;
+    private int age;
+    public Cat(String name,int age){
+        this.name=name;
+        this.age=age;
+    }
+}
+//结果
+//460141958
+//1163157884
+// 注意事项：两个对象的hash值不一样
+
+ 像重写equals方法一样，我们也可以重写hashcode()方法。此时我们再来看看。
+
+import java.util.Objects;
+ 
+public class Test {
+    public static void main(String[] args) {
+        Cat cat1=new Cat("小白",5);
+        Cat cat2=new Cat("小白",5);
+        System.out.println(cat1.hashCode());
+        System.out.println(cat2.hashCode());
+ 
+    }
+}
+ 
+class Cat{
+    private String name;
+    private int age;
+    public Cat(String name,int age){
+        this.name=name;
+        this.age=age;
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age);
+    }
+}
+//结果：
+//23589176
+//23589176
+//哈希值一样
+
+所以必要情况下我们也要重写hashcode()方法。 
+————————————————
+版权声明：本文为CSDN博主「嘎嘎烤鸭」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/m0_65601072/article/details/126931300
