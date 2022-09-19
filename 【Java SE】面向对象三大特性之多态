@@ -1,0 +1,381 @@
+何为多态？
+多态，通俗一点说就是在完成某一个行为的时候，不同的对象会产生不同的形态。
+
+比如说：打印机在完成打印行为的时候，可以根据不同的对象打印不同的类型，有黑白，有彩色等等，打印的结果是不一样的。
+
+总的来说：同一件事情，发生在不同对象身上，就会产生不同的结果。
+
+如何实现多态？
+在java中要实现多态，必须要满足如下几个条件，缺一不可：
+1. 必须在继承体系下
+2. 子类必须要对父类中方法进行重写
+3. 通过父类的引用调用重写的方法
+多态体现：在代码运行时，当传递不同类对象时，会调用对应类中的方法。 
+
+本类用作多态的入门案例
+public class TestDemo {
+    public static void main(String[] args) { 
+        Animal a = new Animal();
+        Cat c = new Cat();
+        Dog d = new Dog();
+        a.eat();//调用父类自己的功能
+        c.eat();//调用子类重写后的功能
+        d.eat();//调用子类重写后的功能
+ 
+        //父类对象不可以使用子类的特有功能
+        //a.jump();//报错，Animal类里并没有这个方法
+        //a.run();//报错，Animal类里并没有这个方法
+ 
+        c.jump();//子类调用自己的功能
+        d.run();//子类调用自己的功能
+ 
+        //创建多态对象进行测试
+        //口诀1：父类引用指向子类对象
+        //解释：创建出来的子类对象的地址值，交给父类类型的引用类型变量来保存
+ 
+        Animal a2 = new Cat();//Cat类对象的地址值交给父类型变量a2来保存
+        Animal a3 = new Dog();//Dog类对象的地址值交给父类型变量a3来保存
+ 
+        //测试多态对象
+        //口诀2：编译看左边，运行看右边
+        //解释：
+        //必须要在父类定义这个方法，才能通过编译，把多态对象看作是父类类型
+        //必须要在子类重写这个方法，才能满足多态，实际干活的是子类
+ 
+        a2.eat();//多态对象使用的是父类的定义，子类的方法体
+    }
+}
+//多态的前提：继承+重写
+//1.创建父类
+class Animal{
+    //创建父类的普通方法
+    public void eat(){
+        System.out.println("Animal吃");
+    }
+}
+//创建子类Cat
+class Cat extends Animal{
+    //重写父类方法
+    @Override
+    public void eat(){
+        System.out.println("小猫吃");
+    }
+    //子类的特有方法
+    public void jump(){
+        System.out.println("小猫跳");
+    }
+}
+//创建子类Dog
+class Dog extends Animal{
+    //重写父类方法
+    @Override
+    public void eat(){
+        System.out.println("小狗吃");
+    }
+    //添加子类的特有方法
+    public void run(){
+        System.out.println("小狗跑");
+    }
+}
+
+这里以一个支付的结果来作为测试：
+
+//提供一个抽象类或者接口
+//这里提供一个抽象类
+public abstract class Pay {
+   abstract String  PayMethod();
+}
+ 
+public  class PayPal extends Pay {
+    @Override
+   public String PayMethod() {
+        System.out.println("支付宝Pay........");
+        return "success";
+    }
+}
+ 
+public class UnionPay extends Pay {
+    @Override
+  public  String PayMethod() {
+        System.out.println("银联Pay........");
+        return "success";
+    }
+}
+ 
+public class WeChatPay extends Pay {
+    @Override
+    public  String PayMethod() {
+        System.out.println("微信Pay........");
+        return "success";
+    }
+}
+ 
+public class Main {
+    public static void main(String[] args) {
+        //支付宝
+        Pay pay1=new PayPal();
+        pay1.PayMethod();
+        //银联
+        Pay pay2=new UnionPay();
+        pay2.PayMethod();
+        //微信
+        Pay pay3=new WeChatPay();
+        pay3.PayMethod();
+    }
+}
+//结果：
+//支付宝Pay........
+//银联Pay........
+//微信Pay........
+//都调用了PayMethod()，不同对象调用同一方法产生了不同结果
+
+ 多态的使用案例：
+public class TestDemo {
+    public static void main(String[] args) { 
+        Dog d = new Dog();
+        System.out.println(d.sum);//子类自己的属性
+        d.eat();//子类自己的方法
+ 
+        //创建多态对象
+        //口诀1：父类引用指向子类对象
+        //口诀2：编译(保存)看左边，运行(效果)看右边
+        Animal a = new Dog();
+        //多态中，成员变量使用的是父类的
+        System.out.println(a.sum);   //10
+        //多态中，方法的声明使用的是父类的，方法体使用的是子类的
+        a.eat();//小狗吃
+        /*多态中，调用的静态方法是父类的，因为多态对象把自己看作是父类类型
+        * 直接使用父类中的静态资源*/
+ 
+        a.play();//没有提示，玩啥都行~
+        Animal.play();
+    }
+}
+//创建父类
+class Animal{ 
+    int sum = 10;        //创建父类的成员变量 
+    public void eat(){   //创建父类的普通方法
+        System.out.println("吃啥都行~");
+    } 
+    public static void play(){//定义父类的静态方法play
+        System.out.println("玩啥都行~");
+    }
+}
+//创建子类
+class Dog extends Animal{
+    int sum = 20;     //定义子类的成员变量 
+    @Override         //重写父类的方法
+    public void eat(){
+        System.out.println("小狗吃");
+    }
+    //创建子类的静态方法play
+    //@Override
+    /*这不是一个重写的方法，只是恰巧在两个类中出现了一模一样的两个静态方法
+    * 静态方法属于类资源，只有一份，不存在重写的现象
+    * 在哪个类里定义，就作为哪个类的资源使用*/
+    public static void play(){
+        System.out.println("小狗玩");
+    }
+}
+
+ 汽车设计案例
+public class DesignCar {
+    public static void main(String[] args) {
+        Car c = new Car();
+        System.out.println(c.getColor());//color：null
+        c.start();//我的小车车启动啦~
+        c.stop();//唉呀妈呀熄火了~
+        //c.swim();//报错，父类对象不可以调用子类的特有方法
+        BMW b = new BMW();
+        System.out.println(b.color);     //五彩斑斓的黑
+        System.out.println(b.getColor());//父类中的color为null
+        b.start();//都让开，我的车要起飞啦~//用自己的方法
+        b.stop();//唉呀妈呀熄火了~，自己没有用父类的方法
+ 
+        //创建多态对象进行测试
+        Car c2 = new TSL();
+        //System.out.println(c2.color);//报错，父类的color不能直接访问
+        System.out.println(c2.getColor());//父类的color可以通过封装的getcolor()接口间接访问
+        c2.stop();//自己的方法
+        c2.start();//父类的方法
+        // c2.swim();//报错，Car类型的c2里，没有swim()方法
+    }
+}
+class Car{
+    //2.定义并封装汽车类的属性--成员变量
+    private String brand;//品牌
+    private String color;//颜色
+    private int id;//编号
+    private double price;//价格
+ 
+    //3.定义功能
+    public void start(){
+        System.out.println("我的小车车启动啦~");
+    }
+    public void stop(){
+        System.out.println("唉呀妈呀熄火了~");
+    }
+ 
+    public String getBrand() {
+        return brand;
+    }
+ 
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+ 
+    public String getColor() {
+        return color;
+    }
+ 
+    public void setColor(String color) {
+        this.color = color;
+    }
+ 
+    public int getId() {
+        return id;
+    }
+ 
+    public void setId(int id) {
+        this.id = id;
+    }
+ 
+    public double getPrice() {
+        return price;
+    }
+ 
+    public void setPrice(double price) {
+        this.price = price;
+    }
+}
+class BMW extends Car{
+    String color = "五彩斑斓的黑";
+    @Override //重写父类的方法
+    public void start(){
+        System.out.println("都让开，我的车要起飞啦~");
+    }
+}
+class TSL extends Car{
+    @Override//重写父类的方法
+    public void stop(){
+        System.out.println("唉呀妈，怎么停不下来呢");
+    }
+    //添加子类的特有方法
+    public void swim(){
+        System.out.println("没想到吧，我还是个潜水艇");
+    }
+}
+
+ 水果案例：
+public class TestFruit {
+    public static void main(String[] args) {
+        Fruit f = new Fruit();
+        Apple a = new Apple();
+        Orange o = new Orange();
+        get(f);
+        get(a);
+        get(o);
+    }
+    //只需要创建一个方法，就可以执行截然不同的效果
+    //忽略子类对象的差异统一看作父类类型
+    public static void get(Fruit f){
+        f.clean();
+    }
+}
+class Fruit{
+    public void clean(){
+        System.out.println("水果要洗洗再吃");
+    }
+}
+class Apple extends Fruit{
+    @Override
+    public void clean(){
+        System.out.println("苹果需要削皮");
+    }
+}
+class Orange extends Fruit{
+    @Override
+    public void clean(){
+        System.out.println("橙子需要剥皮");
+    }
+}
+//水果要洗洗再吃
+//苹果需要削皮
+//橙子需要剥皮
+
+ 这就体现了多态。其中也包含了向上转型的方法。
+
+什么是向上转型？
+向上转型：实际就是创建一个子类对象，将其当成父类对象来使用。
+语法格式：父类类型 对象名 = new 子类类型()
+
+ 就比如上面的：
+
+//支付宝
+        Pay pay1=new PayPal();
+        pay1.PayMethod();
+ 父类引用子类，因为是小范围到大范围，所以可以实现向上转型
+
+向上转型的优点：让代码实现更简单灵活。
+向上转型的缺陷：不能调用到子类特有的方法。
+
+ 有向上转型肯定会有向下转型啦！
+
+什么是向下转型？
+向上转型会导致无法调用子类特有的方法，但是有时候可能需要调用子类特有的方法，此时：将父类引用再还原为子类对象即可，即向下转换。
+
+public abstract class Pay {
+   abstract String  PayMethod();
+} 
+public  class PayPal extends Pay { 
+    @Override
+   public String PayMethod() {
+        System.out.println("支付宝Pay........");
+        return "success";
+    }
+    public void prompt(){
+        System.out.println("余额不足，请选择其他方式进行支付");
+    }
+}
+ 
+public class Main {
+    public static void main(String[] args) {
+        //支付宝
+        Pay pay1=new PayPal();
+        pay1.PayMethod(); 
+        //方法一：直接强转
+        pay1=(PayPal)pay1; 
+        ((PayPal) pay1).prompt();
+        //方法二：利用instanceof
+        if(pay1 instanceof PayPal){
+            pay1=(PayPal)pay1;
+            ((PayPal) pay1).prompt(); 
+        } 
+    } 
+}
+//结果：
+//支付宝Pay........
+//余额不足，请选择其他方式进行支付
+//余额不足，请选择其他方式进行支付
+
+注意：使用强转符 （）可能存在ClassCastException错误。
+
+向下转型用的比较少，而且不安全，万一转换失败，运行时就会抛异常。Java中为了提高向下转型的安全性，引入了 instanceof ，如果该表达式为true，则可以安全转换。
+
+多态的优点：
+可替换性（substitutability）：多态对已存在代码具有可替换性。例如，多态对圆Circle类工作，对其他任何圆形几何体，如圆环，也同样工作。
+可扩充性（extensibility）。多态对代码具有可扩充性。增加新的子类不影响已存在类的多态性、继承性，以及其他特性的运行和操作。实际上新加子类更容易获得多态功能。例如，在实现了圆锥、半圆锥以及半球体的多态基础上，很容易增添球体类的多态性。
+接口性（interface-ability）。多态是超类通过方法签名，向子类提供了一个共同接口，由子类来完善或者覆盖它而实现的。
+灵活性（flexibility）。它在应用中体现了灵活多样的操作，提高了使用效率。
+简化性（simplicity）。多态简化对应用软件的代码编写和修改过程，尤其在处理大量对象的运算和操作时，这个特点尤为突出和重要。
+
+需要注意的是要避免在构造方法中调用重写的方法。
+
+尽量不要在构造器中调用方法(如果这个方法被子类重写, 就会触发动态绑定, 但是此时子类对象还没构造完成), 可能会出现一些隐藏的但是又极难发现的问题。  
+
+什么是静态绑定与动态绑定？
+静态绑定：也称为前期绑定(早绑定)，即在编译时，根据用户所传递实参类型就确定了具体调用那个方法。典型代表方法重载。
+动态绑定：也称为后期绑定(晚绑定)，即在编译时，不能确定方法的行为，需要等到程序运行时，才能够确定具体调用那个类的方法。
+————————————————
+版权声明：本文为CSDN博主「嘎嘎烤鸭」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/m0_65601072/article/details/126931667
