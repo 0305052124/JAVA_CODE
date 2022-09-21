@@ -1,0 +1,12 @@
+package jirth;
+class Shape { 
+    public int getC(int len1,int len2, int len3){
+        return len1+len2+len3;
+    }
+    public int getC(int len1,int len2, int len3,int len4){
+        return len1+len2+len3+len4;
+    }
+    public int getC(int len1,int len2, int len3, int len4,int len5){
+        return len1+len2+len3+len4+len5;
+    } 
+}
