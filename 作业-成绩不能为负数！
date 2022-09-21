@@ -1,0 +1,30 @@
+package Score; 
+public class Test {
+    public static void main(String[] args) {
+        StuScore ss =new StuScore();
+        ss.setStuName("小明");
+        ss.setScore(23); 
+    }
+}
+package Score;
+public class StuScore {
+    public String stuName ;
+    private double score;
+
+    public void setStuName(String stuName) {
+        this.stuName = stuName;
+    }
+
+    public void setScore(double score) {
+        if(score<0){
+            System.out.println("成绩不能为负数！");
+        }else{
+            this.score = score;
+            show();
+        }
+    }
+
+    void show() {
+        System.out.println(stuName + "的成绩是:" + score);
+    }
+}
