@@ -10,3 +10,17 @@ class Shape {
         return len1+len2+len3+len4+len5;
     } 
 }
+package jirth;
+public class Test {
+    public static void main(String[] args) {
+        int a1 = 1;
+        int a2 = 2;
+        int a3 = 3;
+        int a4 = 4;
+        int a5 = 5;
+        Shape shape = new Shape();
+        System.out.println(shape.getC(a1, a2, a3));
+        System.out.println(shape.getC(a1, a2, a3,a4));
+        System.out.println(shape.getC(a1, a2, a3,a4,a5));
+    }
+}
