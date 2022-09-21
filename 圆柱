@@ -1,0 +1,28 @@
+1.  package Cylinder;
+
+
+public class Test {
+public static void main(String [] args) {
+Col col = new Col();
+col.height=4.0f;
+col.r=2.0f;
+System.out.println(col.basalArea());
+System.out.println(col.Volume());
+}
+}
+
+
+
+package Cylinder;
+
+
+public class Col {
+public float height;
+public float r;
+public float basalArea() {
+return (float)(r*r*Math.PI);
+}
+public float Volume() {
+return (float)(r*r*Math.PI*height);
+}
+}
