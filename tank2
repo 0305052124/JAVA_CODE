@@ -1,0 +1,56 @@
+package F;
+
+
+public class Fight {
+public static void main (String [] args) {
+Tank tank = new Tank();
+tank.speedUp(2);
+System.out.println("加速到"+tank.getSpeed());
+tank.speedDown(1);
+System.out.println("减速到"+tank.getSpeed());
+System.out.println(tank.getBulletAmount()+"颗子弹");
+tank.setBulletAmount(5);
+System.out.println(tank.getBulletAmount()+"颗子弹");
+tank.fire();
+System.out.println(tank.getBulletAmount()+"颗子弹");
+}
+}
+
+package F;
+
+
+class Tank {
+public double speed;
+public int bulletAmount;// 子弹数量
+
+
+public void speedUp(int x) {
+this.speed = this.speed + x;
+}
+
+
+public void speedDown(int x) {
+this.speed = this.speed - x;
+}
+
+
+public void setBulletAmount(int x) {
+this.bulletAmount = x;
+}
+
+
+public double getSpeed() {
+return speed;
+}
+
+
+public int getBulletAmount() {
+return bulletAmount;
+}
+
+
+public void fire() {
+this.bulletAmount--;
+System.out.println("开炮！");
+}
+}
