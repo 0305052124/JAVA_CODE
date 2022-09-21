@@ -1,0 +1,66 @@
+package Test;
+
+
+public class Test {
+public static void main (String [] args) {
+Student kiki = new Student(13,11,"男","kiki",18);
+System.out.println(kiki.getStudentID( ));
+System.out.println(kiki.getClassID( ));
+System.out.println(kiki.getSex( ));
+System.out.println(kiki.getName( ));
+System.out.println(kiki.getStudentID());
+}
+}
+
+package Test;
+class Student {
+private int studentID;//学号
+private int classID;//班号
+private String sex;//性别
+private String name;//姓名
+private int age;//年龄
+
+public Student(){
+
+}
+public Student(int studentID,int classID,String sex,String name,int age) {
+this.age=age;
+this.classID=classID;
+this.sex=sex;
+this.name=name;
+this.studentID=studentID;
+
+}
+
+public int getStudentID() {
+return studentID;
+}
+public void setStudentID(int studentID) {
+this.studentID = studentID;
+}
+public int getClassID() {
+return classID;
+}
+public void setClassID(int classID) {
+this.classID = classID;
+}
+public String getSex() {
+return sex;
+}
+public void setSex(String sex) {
+this.sex = sex;
+}
+public String getName() {
+return name;
+}
+public void setName(String name) {
+this.name = name;
+}
+public int getAge() {
+return age;
+}
+public void setAge(int age) {
+this.age = age;
+}
+
+}
