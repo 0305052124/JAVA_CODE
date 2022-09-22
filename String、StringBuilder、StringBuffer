@@ -1,0 +1,90 @@
+
+StringBuffer stringBuffer01 = new StringBuffer();
+StringBuffer stringBuffer02 = new StringBuffer();
+ 
+//1.StringBuffer append(String str) 
+//将指定的字符串附加到此字符序列。(不一定是String类型，很多均可)
+stringBuffer01.append("Hellojava"); //此时stringBuffer01的内容为"Hellojava"。
+stringBuffer02.append(123456); //此时stringBuffer02的内容为"123456"。
+ 
+//2.int capacity() 
+//返回当前容量
+System.out.println(stringBuffer01.capacity()); //输出为16
+ 
+//3.char charAt(int index) 
+//返回 char在指定索引在这个序列值。 
+System.out.println(stringBuffer01.charAt(0)); //输出"H"
+ 
+//4.StringBuffer delete(int start, int end) 
+//删除此序列的子字符串中的字符。 区间前闭后开。
+System.out.println(stringBuffer02.delete(0, 2));
+//此时stringBuffer02为"3456"
+ 
+//5.StringBuffer deleteCharAt(int index) 
+//删除 char在这个序列中的指定位置。 
+System.out.println(stringBuffer02.deleteCharAt(0)); //此时stringBuffer02为456
+ 
+//6.int indexOf(String str) 
+//返回指定子字符串第一次出现的字符串内的索引。
+System.out.println(stringBuffer01.indexOf("java"));//输出为5
+ 
+//7.StringBuffer insert(int offset, String str) 
+//将字符串插入到此字符序列中。  
+System.out.println(stringBuffer02.insert(0, "123"));//此时stringBuffer02为123456
+ 
+//8.int lastIndexOf(String str) 
+//返回指定子字符串最右边出现的字符串内的索引。
+StringBuffer stringBuffer03 = new StringBuffer("12345123");
+System.out.println(stringBuffer03);
+System.out.println(stringBuffer03.lastIndexOf("123")); //输出5
+ 
+//9.int length() 
+//返回长度(字符数)
+System.out.println(stringBuffer03.length()); //输出为8
+ 
+//10.StringBuffer replace(int start, int end, String str) 
+//用指定的String中的字符替换此序列的子字符串中的 String。(前闭后开)
+System.out.println(stringBuffer03.replace(5,8,"6789"));
+//此时stringBuffer03为"123456789"
+ 
+//11.StringBuffer reverse() 
+//导致该字符序列被序列的相反代替。 
+System.out.println(stringBuffer03.reverse()); //此时stringBuffer03为987654321
+ 
+//12.void setCharAt(int index, char ch) 
+//指定索引处的字符设置为 ch 。 
+stringBuffer03.setCharAt(0, 'x');
+System.out.println(stringBuffer03); //此时stringBuffer03为"x87654321"
+ 
+//13.void setLength(int newLength) 
+//设置字符序列的长度。 
+stringBuffer03.setLength(14);
+ 
+//14.String substring(int start) 
+//返回一个新的 String ，其中包含此字符序列中当前包含的字符的子序列。 
+System.out.println(stringBuffer03.substring(4)); //输出"54321"
+ 
+//15.String substring(int start, int end) 
+//返回一个新的 String ，其中包含此序列中当前包含的字符的子序列。(前闭后开) 
+System.out.println(stringBuffer03.substring(4,7)); //输出"543"
+ 
+//16.String toString() 
+//返回表示此顺序中的数据的字符串。 
+String s = stringBuffer03.toString();
+System.out.println(s); //s为"x87654321"
+public class StringTest01 {
+    public static void main(String[] args) {
+        String str1 = "hello world";
+        String str2 = new String("hello world");
+        String str3 = "hello world";
+        String str4 = new String("hello world");
+ 
+        System.out.println(str1==str2);
+        System.out.println(str1==str3);
+        System.out.println(str2==str4);
+    }
+}
+//false
+//true
+//false
+///https://blog.csdn.net/m0_65601072/article/details/127000522?spm=1001.2014.3001.5502
