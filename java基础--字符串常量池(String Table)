@@ -1,0 +1,38 @@
+public class StringTest {
+    public static void main(String[] args) {
+            System.out.println(); 
+            System.out.println("1"); 
+            System.out.println("2"); 
+            //如下的字符串"1" 到 "2"不会再次加载
+            System.out.println("1"); 
+            System.out.println("2");  
+	}
+  public class Test1 {
+    public static void main(String[] args) {
+        String str1="hello";
+        String str2="hello";
+        String str3=new String("world");
+        String str4=new String("world");
+        System.out.println(str1==str2);
+        System.out.println(str1==str3);
+        System.out.println(str3==str4);
+    }
+}
+//true
+//false
+//false
+public static void main(String[] args) {
+String s1 = "hello";
+String s2 = "hello";
+System.out.println(s1 == s2); // true
+}
+public static void main(String[] args) {
+char[] ch = new char[]{'a', 'b', 'c'};
+String s1 = new String(ch); // s1对象并不在常量池中
+//s1.intern(); // s1.intern()；调用之后，会将s1对象的引用放入到常量池中
+String s2 = "abc"; // "abc" 在常量池中存在了，s2创建时直接用常量池中"abc"的引用
+System.out.println(s1 == s2);
+} /
+/ 输出false
+// 将上述方法打开之后，就会输出true
+//https://blog.csdn.net/m0_65601072/article/details/127001151?spm=1001.2014.3001.5502
