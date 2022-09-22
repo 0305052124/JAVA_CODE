@@ -1,0 +1,53 @@
+public class Test {
+    public static int getElement(int[] array, int index){
+        if(null == array){
+            throw new NullPointerException("传递的数组为null");
+        }if(index < 0 || index >= array.length){
+            throw new ArrayIndexOutOfBoundsException("传递的数组下标越界");
+        }
+        return array[index];
+    }
+    public static void main(String[] args) {
+        int[] array = {1,2,3};
+        getElement(array, 3);
+    } 
+}
+try{
+// 将可能出现异常的代码放在这里
+}catch(要捕获的异常类型 e){
+// 如果try中的代码抛出异常了，此处catch捕获时异常类型与try中抛出的异常类型一致时，或者是try中抛出异常的基类
+时，就会被捕获到
+// 对异常就可以正常处理，处理完成后，跳出try-catch结构，继续执行后序代码
+}catch(异常类型 e){
+// 对异常进行处理
+} 
+try {
+    
+} catch (ClassNotFoundException e) {
+    e.printStackTrace();
+}
+public class ExceptionTest {
+    public static void main(String[] args) {
+    	try {
+            System.out.println("try...");
+            return;
+        } finally {
+            System.out.println("finally...");
+        } 
+        // 这里不能写语句，因为这个代码是无法执行到的。
+        //System.out.println("Hello World!");
+    }
+}
+
+public class ExceptionTest {
+    public static void main(String[] args) {
+        try {
+            System.out.println("try...");
+            // 退出JVM
+            System.exit(0); // 退出JVM之后，finally语句中的代码就不执行了！
+        } finally {
+            System.out.println("finally...");
+        }
+    }
+}
+///https://blog.csdn.net/m0_65601072/article/details/126996046?spm=1001.2014.3001.5502
